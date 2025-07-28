@@ -1,0 +1,176 @@
+﻿:root {
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --body-text-color: #222;
+    --body-background-color: white;
+    --hover-background-color: #0001;
+    --active-background-color: #0002;
+    --box-shadow: #0003 0 0 .5rem;
+    --danger-color: #e12;
+    --danger-transparent-color: #e128;
+    --on-danger-color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-text-color: white;
+        --body-background-color: #222;
+        --hover-background-color: #fff1;
+        --active-background-color: #fff2;
+        --box-shadow: #0008 0 0 .5rem;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: var(--body-background-color);
+    color: var(--body-text-color);
+    font-family: var(--font-family);
+    height: 100vh;
+}
+
+button, input {
+    font-family: var(--font-family);
+}
+
+/* title bar */
+
+.title-bar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: stretch;
+    box-shadow: var(--box-shadow);
+    user-select: none;
+}
+
+    .title-bar.inactive > * {
+        opacity: 0.5;
+    }
+
+    .title-bar .drag-area {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+
+    .title-bar .top-border-resize-wide,
+    .title-bar .top-border-resize-narrow {
+        position: absolute;
+        width: 100%;
+        cursor: n-resize;
+    }
+
+    .title-bar .top-border-resize-wide {
+        height: 5px;
+        z-index: 100;
+    }
+
+    .title-bar .top-border-resize-guaranteed {
+        height: 2px;
+        z-index: 1000;
+    }
+
+    .title-bar .free-area {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+        .title-bar .free-area * {
+            z-index: 0;
+        }
+
+    .title-bar .window-control-buttons {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+        z-index: 200;
+    }
+
+        .title-bar .window-control-buttons > button, button.flat {
+            height: 2rem;
+            padding: 0 .8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            color: inherit;
+        }
+
+        .title-bar .window-control-buttons > button {
+            padding-bottom: .2rem;
+        }
+
+            .title-bar .window-control-buttons > button:hover, button.flat:hover {
+                background: var(--hover-background-color);
+            }
+
+            .title-bar .window-control-buttons > button:active, button.active:hover {
+                background: var(--active-background-color);
+            }
+
+            .title-bar .window-control-buttons > button.close:hover {
+                background: var(--danger-color);
+                color: var(--on-danger-color);
+            }
+
+            .title-bar .window-control-buttons > button.close:active {
+                background: var(--danger-transparent-color);
+                color: var(--on-danger-color);
+            }
+
+            .title-bar .window-control-buttons > button.minimize::before {
+                content: "🗕";
+            }
+
+            .title-bar .window-control-buttons > button.restore::before {
+                content: "🗗";
+            }
+
+            .title-bar .window-control-buttons > button.maximize::before {
+                content: "🗖";
+            }
+
+            .title-bar .window-control-buttons > button.close::before {
+                content: "🗙";
+            }
+
+/* app body */
+
+.app-body {
+    overflow: auto;
+    flex-grow: 1;
+    padding: .5rem;
+}
+
+/* app footer */
+
+.app-footer {
+    font-size: 0.8rem;
+    box-shadow: var(--box-shadow);
+    padding: .4rem .6rem;
+    user-select: none;
+}
+
+/* blazor error */
+
+#blazor-error-ui {
+    display: none;
+    background: var(--danger-color);
+    color: var(--on-danger-color);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 1.5rem;
+    z-index: 1000;
+}
+
+    #blazor-error-ui > a {
+        color: var(--on-danger-color);
+    }

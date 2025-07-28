@@ -1,0 +1,33 @@
+﻿@inject TitleBarLessBlazorWindow MainWindow
+
+@code {
+    private FormWindowState _lastWindowState;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Moving a maximized window restores it,
+        // but it doesn't refresh this component by default.
+        MainWindow.Move += RefreshIfNeeded;
+        _lastWindowState = MainWindow.WindowState;
+        await base.OnInitializedAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        _lastWindowState = MainWindow.WindowState;
+        base.OnAfterRender(firstRender);
+    }
+
+    public virtual void Dispose()
+    {
+        MainWindow.Move -= RefreshIfNeeded;
+    }
+
+    private void RefreshIfNeeded(object? s, EventArgs e)
+    {
+        if (_lastWindowState == MainWindow.WindowState)
+            return;
+
+        StateHasChanged();
+    }
+}

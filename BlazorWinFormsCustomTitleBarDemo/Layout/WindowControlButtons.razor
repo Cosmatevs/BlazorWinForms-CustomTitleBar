@@ -1,0 +1,20 @@
+﻿@inherits RefreshedOnWindowStateChange
+@inject TitleBarLessBlazorWindow MainWindow
+
+<section class="window-control-buttons">
+    @if (MainWindow.MinimizeBox)
+    {
+        <button title="@(Properties.Resources.Window_Minimize)"
+                class="minimize"
+                @onclick="() => MainWindow.Minimize()"/>
+    }
+    @if (MainWindow.MaximizeBox)
+    {
+        <button title="@(MainWindow.IsMaximized() ? Properties.Resources.Window_Restore : Properties.Resources.Window_Maximize)"
+                class="@(MainWindow.IsMaximized() ? "restore" : "maximize")"
+                @onclick="() => MainWindow.ToggleMaximization()"/>
+    }
+    <button title="@Properties.Resources.Window_Close"
+            class="close"
+            @onclick="() => MainWindow.Close()"/>
+</section>

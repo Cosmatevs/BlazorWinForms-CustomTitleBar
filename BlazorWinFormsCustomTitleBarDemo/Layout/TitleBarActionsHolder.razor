@@ -1,0 +1,34 @@
+﻿@inherits RefreshedOnWindowStateChange
+@inject TitleBarLessBlazorWindow MainWindow
+
+<div class="drag-area" @onmousedown="@TitleBarMouseDown" @onmouseup="@TitleBarMouseUp"></div>
+@if (MainWindow.IsMaximized() is false
+    && MainWindow.FormBorderStyle is FormBorderStyle.Sizable or FormBorderStyle.SizableToolWindow)
+{
+    <div class="top-border-resize-wide" @onmousedown="@TopBorderButtonDown"></div>
+    <div class="top-border-resize-guaranteed" @onmousedown="@TopBorderButtonDown"></div>
+}
+
+@code {
+    private void TitleBarMouseDown(MouseEventArgs e)
+    {
+        if (e.Button != 0) // not left click
+            return;
+
+        MainWindow.TitleBarLeftButtonDown(e.Detail == 2);
+    }
+
+    private void TitleBarMouseUp(MouseEventArgs e)
+    {
+        if (e.Button == 2) // right click
+            MainWindow.TitleBarRightButtonUp();
+    }
+
+    private void TopBorderButtonDown(MouseEventArgs e)
+    {
+        if (e.Button != 0) // not left click
+            return;
+
+        MainWindow.TopBorderLeftButtonDown(e.Detail == 2);
+    }
+}

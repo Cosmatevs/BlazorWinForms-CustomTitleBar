@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@implements IDisposable
+@inject TitleBarLessBlazorWindow MainWindow
+
+<header class="title-bar @(MainWindow.IsActive ? "active" : "inactive")">
+    <TitleBarActionsHolder />
+    <section class="free-area">
+        @ChildContent
+    </section>
+    <WindowControlButtons />
+</header>
+
+@code {
+    /// <summary>
+    /// Elements that aren't supposed to block the feature of dragging the window must be stylized with <c>z-index: -1</c>
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        MainWindow.ActiveChanged += WindowActiveChanged;
+    }
+
+    public void Dispose()
+    {
+        MainWindow.ActiveChanged -= WindowActiveChanged;
+    }
+
+    private void WindowActiveChanged(object? sender, bool active)
+    {
+        StateHasChanged();
+    }
+}
