@@ -4,10 +4,10 @@ Implemented with WinForms, using the `BlazorWebView` component.
 ![Preview window](readme-images/preview.png)
 
 # Goals
-- Recreate the title bar as a Blazor component – to simplify customization and integration with the rest of the desktop app.
+- Recreate the title bar as a Blazor component – to simplify customization and integration with the rest of a Blazor desktop app.
 - Make the app window behave as similarly as possible to a native Windows window.
 
-Many window features work out of the box in a WinForms form. However, since the title bar is supposed to be custom, some features must be implemented on the Blazor side.
+Many window features work out of the box in a WinForms form. However, some features had to be reimplemented to make them usable in Blazor.
 
 # Usage
 For a Visual Studio environment, make sure you have the following workloads installed (via Visual Studio Installer):
@@ -16,9 +16,10 @@ For a Visual Studio environment, make sure you have the following workloads inst
 
 Then download the source code of this and open the `.sln` file in Visual Studio.
 
-Include the `BlazorWinFormsCustomTitleBar` project in your WinForms project, then initialize the `TitleBarLessBlazorWindow` class in your `Program.cs`.
+The `BlazorWinFormsCustomTitleBar` project contains a custom WinForms form with a Blazor component, as well as the necessary functions and properties to implement a custom title bar.\
+This is only a class library, not a runnable project.
 
-You can see an example implementation in the `BlazorWinFormsCustomTitleBarDemo` project.
+The `BlazorWinFormsCustomTitleBarDemo` project is an example implementation you can use as a start point.
 
 # Main features
 *at least some of these features were missing from other solutions I've found*
@@ -67,4 +68,4 @@ The above mentioned functions, properties, and events are part of the `TitleBarL
 
 # Other notes
 - I've tested the solution on Windows 11. I don't know if it works as intended on other systems.
-- I'd be happy to see your solutions for missing features and issues.
+- I'd be happy to see your suggestions and solutions for the missing features and issues.
